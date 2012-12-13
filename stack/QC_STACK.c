@@ -1,0 +1,29 @@
+/* Array implementation of a pushdown stack */
+
+#include <stdlib.h>
+#include "QC_STACK.h"
+#include "Item.h"
+
+static Item *stack;
+static int top;
+
+void STACKinit(int maxN)
+{ 
+  stack = (Item *)malloc (sizeof(Item) * maxN);
+  top = 0;
+}
+
+int STACKempty()
+{
+  return top == 0;
+}
+
+void STACKpush(Item a)
+{
+  stack[top++] = a;
+}
+
+Item STACKpop()
+{
+  return stack[--top];
+}

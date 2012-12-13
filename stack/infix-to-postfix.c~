@@ -1,0 +1,35 @@
+/* This file serves as a stack ADT client 
+ * Program 4.2
+ * for example 235
+ * first push 0 to the stack
+ * pop 0 * 10 + '2' - '0' = 2 push 2
+ * pop 2 * 10 + '3' - '0' = 23 push 23
+ * pop 23 * 10 + '5' - '0' = 235 push 235
+ * the 0 setup is important for computing the number based on single bit
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "QC_STACK.h"
+#include "Item.h"
+
+int main(int argc, char **argv)
+{
+  char *in = argv[1]; int i = 0; int N = strlen(in);
+  
+  STACKinit(N);
+
+  for(i = 0; i < N; i++) {
+    if (in[i] == '+')
+      { STACKpush(STACKpop() + STACKpop()); }
+    if (in[i] == '*')
+      { STACKpush(STACKpop() * STACKpop()); } 
+    if (in[i] >= '0' && in[i] <= '9')
+      { STACKpush(0); }		/* setup stack for the following while loop */
+    while(in[i] >= '0' && in[i] <= '9') 
+      { STACKpush(STACKpop()*10 + in[i++]-'0'); } 
+    
+  }
+  printf("result = %d", STACKpop());
+  
+}
